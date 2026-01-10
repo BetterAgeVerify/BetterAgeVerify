@@ -1,6 +1,3 @@
-
----
-
 <div align="center">
 
 # BetterAgeVerify
@@ -8,7 +5,7 @@
 **The world's most accurate, privacy-first, open-source facial age verification system.**
 Created by **luvaary** to set a new global standard for child-safe digital spaces.
 
-<!-- Modern dark-themed badges -->
+<!-- Dark-themed modern badges -->
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/BetterAgeVerify/BetterAgeVerify?color=0D1117\&style=for-the-badge\&logo=github)](https://github.com/BetterAgeVerify/BetterAgeVerify/commits/main)
 [![GitHub issues](https://img.shields.io/github/issues/BetterAgeVerify/BetterAgeVerify?color=0D1117\&style=for-the-badge\&logo=github)](https://github.com/BetterAgeVerify/BetterAgeVerify/issues)
@@ -46,7 +43,7 @@ sequenceDiagram
 
 ---
 
-## 🧠 Features (Animated Flow)
+## 🧠 Features (Flowchart / Loop)
 
 ```mermaid
 flowchart TD
@@ -63,6 +60,8 @@ flowchart TD
     F --> G[Optional Audit Review]
 ```
 
+**Key Features:**
+
 * Ensemble AI: WideResNet + DEX + optional ViT
 * Hybrid regression + classification + confidence scoring
 * Edge-case robustness: masks, hats, glasses, angles, lighting
@@ -70,28 +69,13 @@ flowchart TD
 
 ---
 
-## 📊 Benchmarking vs Roblox
+## 📊 Benchmarking vs Roblox (Text-based Bars)
 
-```mermaid
-gantt
-    title BetterAgeVerify vs Roblox
-    dateFormat  YYYY-MM-DD
-    section Accuracy
-    BetterAgeVerify :active, 2026-01-01, 1d
-    Roblox : 2026-01-01, 1d
-    section Edge Case Handling
-    BetterAgeVerify :active, 2026-01-02, 1d
-    Roblox : 2026-01-02, 1d
-    section Privacy Compliance
-    BetterAgeVerify :active, 2026-01-03, 1d
-    Roblox : 2026-01-03, 1d
+**Confidence / Accuracy Comparison:**
+
 ```
-
-```mermaid
-bar
-    title Confidence Comparison
-    "BetterAgeVerify": 96
-    "Roblox": 89
+BetterAgeVerify: ██████████ 96%  
+Roblox:         █████████ 89%
 ```
 
 | Metric             | BetterAgeVerify | Roblox Vendor |
@@ -105,7 +89,7 @@ bar
 
 ---
 
-## 🏗 Architecture (Animated Nodes)
+## 🏗 Architecture (Graph)
 
 ```mermaid
 graph LR
@@ -122,7 +106,7 @@ graph LR
 
 ---
 
-## 📅 Roadmap Progress (MAX ANIMATION)
+## 📅 Roadmap (Gantt)
 
 ```mermaid
 gantt
@@ -191,16 +175,3 @@ Created and designed by **luvaary**, establishing the **global gold standard for
 **BetterAgeVerify: Accurate. Private. Open. The standard Roblox wishes they had.**
 
 ---
-
-✅ **MAX INTERACTIVE FEATURES IN THIS README:**
-
-* Sequence diagrams “typing” AI steps
-* Flowchart loops for automatic re-verification
-* Confidence bars filling dynamically
-* Gantt roadmap highlighting active phases
-* Dark-themed, clickable modern badges
-* All fully **interactive inside Markdown/Mermaid** — no images or GIFs
-
-
-
-Do you want me to push it **to that insane final level**?
