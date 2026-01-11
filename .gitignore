@@ -1,0 +1,320 @@
+# BetterAgeVerify - Git Ignore Rules
+# Created by luvaary
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# PyTorch Models (large files)
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+models/**/*.pth
+models/**/*.pt
+
+# Downloaded Model Weights
+models/wideresnet_age.pth
+models/dex_age.pth
+models/vit_age_estimation.pth
+
+# Cache Directories
+.cache/
+*.cache
+__pycache__/
+
+# Test Data (potentially large)
+test_data/
+test_images/
+test_videos/
+
+# Benchmark Results (can be regenerated)
+benchmarks/results/*.json
+benchmarks/results/*.txt
+benchmarks/results/*.png
+
+# Log Files
+logs/
+*.log
+*.jsonl
+*.ndjson
+
+# Privacy-Sensitive Data (NEVER COMMIT)
+# Facial images, biometric data, user data
+user_data/
+faces/
+biometric_data/
+*.face
+personal_images/
+verification_images/
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Coverage Reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Distribution / Packaging
+.Python
+*.manifest
+*.spec
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# GPU Cache
+.nv/
+
+# Video Files (potentially large test data)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+
+# Image Files (test data only, not project assets)
+test_*.jpg
+test_*.jpeg
+test_*.png
+sample_*.jpg
+sample_*.jpeg
+sample_*.png
+demo_*.jpg
+demo_*.jpeg
+demo_*.png
+
+# Saved Verification Results
+verification_*.png
+verification_*.jpg
+verification_result_*.png
+
+# Database Files (if any)
+*.db
+*.sqlite
+*.sqlite3
+
+# Compressed Files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# System Files
+.fuse_hidden*
+.nfs*
+
+# Backup Files
+*.backup
+*.old
+*_backup
+*_old
+
+# Node modules (if any frontend tools used)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Generated Documentation
+docs/generated/
+docs/api/
+
+# Profiling Data
+*.prof
+*.lprof
+
+# Benchmark Data
+benchmarks/data/
+benchmarks/datasets/
+
+# Large Datasets (should be downloaded separately)
+datasets/
+data/
+*.csv
+*.parquet
+
+# Exceptions (files to always track)
+!.gitkeep
+!README.md
+!LICENSE
+!requirements.txt
+!ROADMAP.md
+!CONTRIBUTING.md
+!docs/*.md
+!demos/.gitkeep
+!tests/.gitkeep
+!benchmarks/.gitkeep
+
+# Model placeholders (keep directory structure)
+!models/.gitkeep
+!models/README.md
+
+# Results placeholders
+!benchmarks/results/.gitkeep
+!logs/.gitkeep
+
+# Privacy-Critical: NEVER allow these patterns
+*password*
+*secret*
+*api_key*
+*private_key*
+*.pem
+*.key
+credentials*
+auth_token*
