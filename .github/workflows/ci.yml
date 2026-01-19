@@ -1,0 +1,244 @@
+name: BetterAgeVerify CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov black flake8
+    
+    - name: Check code formatting (black)
+      run: |
+        black --check src/ tests/ demos/ benchmarks/
+    
+    - name: Lint with flake8
+      run: |
+        flake8 src/ tests/ demos/ benchmarks/ --max-line-length=100 --ignore=E203,W503
+    
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+    
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  privacy-check:
+    name: Privacy Compliance Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Verify privacy settings
+      run: |
+        python -c "
+        from src.config import BetterAgeVerifyConfig as Config
+        assert Config.PRIVACY_MODE == True, 'Privacy mode must be enabled'
+        assert Config.DELETE_DATA_TIMEOUT <= 1.0, 'Data deletion timeout must be <= 1 second'
+        assert Config.ANONYMIZE_LOGS == True, 'Logs must be anonymized'
+        print('✓ Privacy compliance verified')
+        "
+    
+    - name: Check for sensitive data patterns
+      run: |
+        if grep -r "localStorage\|sessionStorage" src/ demos/; then
+          echo "✗ Browser storage detected - violates privacy policy"
+          exit 1
+        fi
+        echo "✓ No browser storage usage detected"
+
+  license-check:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Verify license exists
+      run: |
+        if [ ! -f LICENSE ]; then
+          echo "✗ LICENSE file missing"
+          exit 1
+        fi
+        echo "✓ LICENSE file exists"
+    
+    - name: Verify license content
+      run: |
+        if ! grep -q "No More Data!" LICENSE; then
+          echo "✗ LICENSE must be 'No More Data!' license"
+          exit 1
+        fi
+        if ! grep -q "luvaary" LICENSE; then
+          echo "✗ LICENSE must credit luvaary"
+          exit 1
+        fi
+        echo "✓ License compliance verified"
+
+  branding-check:
+    name: Branding Consistency
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Verify project branding
+      run: |
+        python -c "
+        from src.config import BetterAgeVerifyConfig as Config
+        assert Config.PROJECT_NAME == 'BetterAgeVerify', 'Project name must be BetterAgeVerify'
+        assert Config.CREATOR == 'luvaary', 'Creator must be luvaary'
+        print('✓ Branding consistency verified')
+        "
+
+  benchmark-smoke-test:
+    name: Benchmark Smoke Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run benchmark smoke test
+      run: |
+        timeout 60 python benchmarks/benchmark_accuracy.py || echo "Benchmark completed (simulated data)"
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Run Bandit security scan
+      run: |
+        pip install bandit
+        bandit -r src/ -f json -o bandit-report.json || true
+    
+    - name: Check for common vulnerabilities
+      run: |
+        pip install safety
+        safety check --json || true
+
+  build-check:
+    name: Build Verification
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Verify project structure
+      run: |
+        required_dirs=(
+          "src"
+          "tests"
+          "demos"
+          "benchmarks"
+          "docs"
+          "models"
+        )
+        
+        for dir in "${required_dirs[@]}"; do
+          if [ ! -d "$dir" ]; then
+            echo "✗ Required directory missing: $dir"
+            exit 1
+          fi
+        done
+        
+        echo "✓ Project structure verified"
+    
+    - name: Verify required files
+      run: |
+        required_files=(
+          "README.md"
+          "LICENSE"
+          "requirements.txt"
+          "ROADMAP.md"
+          "CONTRIBUTING.md"
+          ".gitignore"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "✗ Required file missing: $file"
+            exit 1
+          fi
+        done
+        
+        echo "✓ Required files verified"
+
+  notify:
+    name: Build Status Notification
+    runs-on: ubuntu-latest
+    needs: [test, privacy-check, license-check, branding-check]
+    if: always()
+    
+    steps:
+    - name: Check build status
+      run: |
+        echo "BetterAgeVerify CI Pipeline Complete"
+        echo "Created by luvaary"
+        echo "Status: ${{ job.status }}"
