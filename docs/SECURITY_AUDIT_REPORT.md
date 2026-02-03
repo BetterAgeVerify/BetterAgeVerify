@@ -43,7 +43,7 @@ BetterAgeVerify is a privacy-first age verification system using an ensemble of 
 1. **Critical Bug:** Data deletion mechanism is ineffective—tensor deletion via `del` does not guarantee memory cleanup in Python
 2. **High Severity:** No liveness detection allows trivial spoofing with static images
 3. **High Severity:** Ensemble models use pretrained weights only, not fine-tuned for age estimation
-4. **Accuracy Limit:** Maximum theoretical accuracy with current approach is ~75-85%, not the claimed 96.3%
+4. **Accuracy Limit:** Maximum achievable accuracy with proper training is ~65-70% within ±2 years, not the claimed 96.3%
 
 ---
 
@@ -703,12 +703,12 @@ Based on academic research and human performance studies:
 
 | Metric | Human Performance | State-of-Art AI | BetterAgeVerify Potential |
 |--------|-------------------|-----------------|--------------------------|
-| MAE (all ages) | 5-6 years | 2.5-3.5 years | 3.0-4.0 years* |
-| Accuracy ±2 years | 45-55% | 65-75% | 55-65%* |
-| Accuracy ±5 years | 75-85% | 85-92% | 80-88%* |
-| Age Bin Accuracy | 70-80% | 85-90% | 80-87%* |
+| MAE (all ages) | 5-6 years | 2.5-3.5 years | 3.5-4.5 years* |
+| Accuracy ±2 years | 45-55% | 65-75% | 65-70%* |
+| Accuracy ±5 years | 75-85% | 85-92% | 85-88%* |
+| Age Bin Accuracy | 70-80% | 85-90% | 82-87%* |
 
-*Estimates assume properly trained models on representative data
+*Estimates assume properly trained models on representative data with recommended improvements
 
 ### 10.2 Why 96.3% is Unrealistic
 
@@ -719,9 +719,9 @@ The claimed 96.3% accuracy (±2 years) would require:
 4. Favorable evaluation methodology
 
 **Industry Reality:**
-- Best commercial systems: 75-85% within ±2 years
-- Best academic results: 70-80% within ±2 years
-- Real-world deployment: 60-75% within ±2 years
+- Best commercial systems: 65-75% within ±2 years
+- Best academic results: 65-72% within ±2 years
+- Real-world deployment: 55-68% within ±2 years
 
 ### 10.3 Achievable Targets (With Improvements)
 
